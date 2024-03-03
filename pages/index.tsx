@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import {
   ConnectWallet,
-  useAddress, useContract, useContractMetadata, useNFTBalance
+  useAddress, useContract, useContractMetadata, useNFTBalance, useTotalCount
 } from "@thirdweb-dev/react";
 import Image from "next/image";
 import { batmanThinking, howAccountAbstractionWorks } from "../public";
@@ -11,11 +11,13 @@ import CollectionCard from "../components/collectionCard";
 const Home: NextPage = () => {
   const address = useAddress()
   const {contract: collection, isLoading: isCollectionLoading} = useContract(NFT_CONTRACT_ADDRESS)
-  const {data: ownerBalance, isLoading: isNFTBalanceLoading, error} = useNFTBalance(
+  const {data: ownerBalance, isLoading: isNFTBalanceLoading, error: NFTBalanceError} = useNFTBalance(
     collection,
     address
   )
-  const {data: contractMetadata, isLoading: isContractMetadataLoading} = useContractMetadata(collection);
+  const {data: contractMetadata, isLoading: isContractMetadataLoading} = useContractMetadata(collection)
+  const {data: totalCollectionSupplyCount, isLoading : isTotalCollectionSupplyCountLoading, error: totalCollectionSupplyCountError} = useTotalCount(collection)
+
   return (
     <main className={""}>
       {
@@ -23,9 +25,14 @@ const Home: NextPage = () => {
           <>
             {(isCollectionLoading
               || isNFTBalanceLoading
-              || isContractMetadataLoading) ? <>Loading...</> :
+              || isContractMetadataLoading
+              || isTotalCollectionSupplyCountLoading) ? <>Loading...</> :
             <div>
-              <CollectionCard name={contractMetadata?.name} description={contractMetadata?.description} symbol={contractMetadata?.symbol} image={contractMetadata?.image ?? ""}/>
+              <CollectionCard name={contractMetadata?.name}
+                              description={contractMetadata?.description}
+                              symbol={contractMetadata?.symbol}
+                              total={totalCollectionSupplyCount}
+                              image={contractMetadata?.image ?? ""}/>
             </div>
       }
           </>
