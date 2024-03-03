@@ -1,102 +1,49 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import styles from "../styles/Home.module.css";
-import Image from "next/image";
 import { NextPage } from "next";
+import {
+  useAddress,
+} from "@thirdweb-dev/react";
+import Image from "next/image";
+import { batmanThinking } from "../public";
 
 const Home: NextPage = () => {
+  const address = useAddress()
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            Welcome to{" "}
-            <span className={styles.gradientText0}>
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
-            </span>
-          </h1>
+    <main className={""}>
+      {
+        address ? <section>
 
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
-
-          <div className={styles.connect}>
-            <ConnectWallet />
+        </section> : <section className={"w-full"}>
+         <div className={"text-6xl text-center font-bold text-blue-500 mb-10"}>
+           Account Abstraction...
+         </div>
+          <div className={"flex flex-col"}>
+            <div className={"flex flex-row"}>
+              <div className={"flex flex-col"}>
+                <h1 className={"text-3xl"}>
+                  What is this account abstraction 🤔
+                </h1>
+                <p className={""}>
+                  A standard <b>(ERC-4337)</b> native to Ethereum and all EVM-based blockchains.
+                  Account abstraction within blockchain systems allows for assets to be held by smart contracts rather than being controlled by <b>externally-owned accounts (EOAs)</b>.
+                  It allows users to use smart contracts as their primary accounts. It essentially turns EOAs into smart contract-enabled accounts.
+                </p>
+              </div>
+              <div>
+                <Image
+                  src={batmanThinking}
+                  width={1000}
+                  height={800}
+                  alt={""}/>
+              </div>
+            </div>
+            <div>
+              <div>
+                <h1></h1>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
+        </section>
+      }
     </main>
   );
 };
