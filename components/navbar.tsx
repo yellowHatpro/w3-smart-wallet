@@ -15,7 +15,10 @@ export default function Navbar() {
           w3 SmartWallet
         </h1>
       </div>
-      <ConnectWallet />
+      <ConnectWallet style={{
+        background: "#b1b2fd",
+        color: "#221343"
+      }}/>
     </nav>
   )
 }
