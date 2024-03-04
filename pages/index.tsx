@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import {
   ConnectWallet,
-  useAddress, useContract, useContractMetadata, useNFTBalance, useNFTs, useTotalCount
+  useAddress, useContract, useContractMetadata, useNFTBalance, useNFTs, useOwnedNFTs, useTotalCount
 } from "@thirdweb-dev/react";
 import Image from "next/image";
 import { batmanThinking, howAccountAbstractionWorks } from "../public";
@@ -11,7 +11,7 @@ import CollectionCard from "../components/collectionCard";
 const Home: NextPage = () => {
   const address = useAddress()
   const { contract: collection, isLoading: isCollectionLoading } = useContract(NFT_CONTRACT_ADDRESS)
-  const { data: ownerNFTBalance, isLoading: isNFTBalanceLoading, error: NFTBalanceError } = useNFTBalance(
+  const { data: ownerNFTBalance, isLoading: isNFTBalanceLoading, error: NFTBalanceError } = useOwnedNFTs(
     collection,
     address
   )
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
             {/*ERC 1155 Stuff*/}
             <div>
               <h1>ERC-1155 Store</h1>
-              <h1>{`Owner NFT Balance: ${ownerNFTBalance?.toNumber() ?? 0}`}</h1>
+              <h1>{`Owner NFT Balance: ${ownerNFTBalance?.length}`}</h1>
               <CollectionCard name={contractMetadata?.name}
                               description={contractMetadata?.description}
                               symbol={contractMetadata?.symbol}
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
             </div>
             {/*Something else*/}
             <div>
-              <h1></h1>
+              <h1>{address}</h1>
               <div></div>
             </div>
           </div>
