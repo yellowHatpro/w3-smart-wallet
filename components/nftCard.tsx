@@ -19,7 +19,7 @@ export default function NftCard({nft}: NftCardProps) {
              height={250}
              width={250} />
       <div className={"flex"}>
-        <h1>{"Total Supply:  "}</h1>
+        <h1>{"Total sold:  "}</h1>
         <h1>{nft.supply}</h1>
       </div>
       <Web3Button
